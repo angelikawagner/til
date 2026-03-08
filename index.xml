@@ -5,7 +5,7 @@
       xmlns:dc="http://purl.org/dc/elements/1.1/" 
       version="2.0">
 <channel>
-<title>TIL Blog</title>
+<title>TIL (Today I Learned)</title>
 <link>https://angelikawagner.github.io/til/</link>
 <atom:link href="https://angelikawagner.github.io/til/index.xml" rel="self" type="application/rss+xml"/>
 <description>Things I&#39;ve learned, one TIL at a time.</description>
@@ -203,49 +203,6 @@ font-style: inherit;">-</span>prompt</span></code></pre></div></div>
   <category>quarto</category>
   <guid>https://angelikawagner.github.io/til/posts/creating-a-quarto-blog/</guid>
   <pubDate>Sun, 08 Mar 2026 00:00:00 GMT</pubDate>
-</item>
-<item>
-  <title>Post With Code</title>
-  <dc:creator>Harlow Malloc</dc:creator>
-  <link>https://angelikawagner.github.io/til/posts/post-with-code/</link>
-  <description><![CDATA[ 
-
-
-
-
-
-<p>This is a post with executable code.</p>
-
-
-
- ]]></description>
-  <category>news</category>
-  <category>code</category>
-  <category>analysis</category>
-  <guid>https://angelikawagner.github.io/til/posts/post-with-code/</guid>
-  <pubDate>Thu, 05 Mar 2026 00:00:00 GMT</pubDate>
-  <media:content url="https://angelikawagner.github.io/til/posts/post-with-code/image.jpg" medium="image" type="image/jpeg"/>
-</item>
-<item>
-  <title>Welcome To My Blog</title>
-  <dc:creator>Tristan O&#39;Malley</dc:creator>
-  <link>https://angelikawagner.github.io/til/posts/welcome/</link>
-  <description><![CDATA[ 
-
-
-
-
-
-<p>This is the first post in a Quarto blog. Welcome!</p>
-<p><img src="https://angelikawagner.github.io/til/posts/welcome/thumbnail.jpg" class="img-fluid"></p>
-<p>Since this post doesn’t specify an explicit <code>image</code>, the first image in the post will be used in the listing page of posts.</p>
-
-
-
- ]]></description>
-  <category>news</category>
-  <guid>https://angelikawagner.github.io/til/posts/welcome/</guid>
-  <pubDate>Mon, 02 Mar 2026 00:00:00 GMT</pubDate>
 </item>
 </channel>
 </rss>

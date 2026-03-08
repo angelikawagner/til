@@ -7,18 +7,11 @@
     "text": "A quick guide on how to get started blogging with Quarto.\n1. Install Quarto\nThe official documentation recommends installing Quarto with a .deb package, which puts the binaries into a system-level folder. Since I didn’t have root access on my Solveit instance, I discovered I could install Quarto via pip, which downloads the binaries into the user’s Python environment.\n!pip install quarto-cli\n!quarto --version\n2. Create a Quarto blog project\nSolveit code cells don’t work well with interactive prompts, so I piped the blog title into the command to skip the interactive prompt.\n!echo \"TIL Blog\" | quarto create project blog myblog\n!ls -la myblog/\n3. Publish to GitHub Pages\nThis was the most involved part. I mostly followed the Quarto documentation for publishing on GitHub Pages, along with some help from Solveit.\n\nGet the GitHub token from Solveit’s secrets to authenticate with GitHub.\n\nfrom os import getenv\ntoken = getenv(\"GITHUB_TOKEN\")\nprint(len(token))\n\nCreate an empty GitHub repo named til on github.com.\nChange into the directory where the blog files are stored.\n\n%cd myblog\n\nAdd a .gitignore to avoid saving the output directory of the project.\n\nwith open('.gitignore', 'w') as f:\n    f.write('/.quarto/\\n/_site/\\n')\n\nInitialize the local repo and make the first commit.\n\n!git init\n!git add .\n!git commit -m \"First commit of Quarto blog\"\n\nPush to GitHub.\n\n!git remote add origin https://{token}@github.com/angelikawagner/til.git\n!git branch -M main\n!git push -u origin main\n\nCreate a gh-pages branch on GitHub.\n\n!git checkout --orphan gh-pages\n!git reset --hard\n!git commit --allow-empty -m \"Initialising gh-pages branch\"\n!git push origin gh-pages\n!git checkout main\n\nConfigure GitHub Pages settings. Go to your repo on GitHub → Settings → Pages → set Source to the gh-pages branch and directory to / (root).\nPublish! I used the --no-browser flag so it doesn’t wait for the website to be available and open a browser window, and the --no-prompt flag to avoid the interactive prompt to confirm publish actions.\n\n!quarto publish gh-pages --no-browser --no-prompt\n4. Customize the blog\nNow to the fun part! All you need for a new post is to - Update the post files locally. - Commit changes and push to GitHub. - Run the command !quarto publish gh-pages --no-browser --no-prompt to publish the changes."
   },
   {
-    "objectID": "posts/post-with-code/index.html",
-    "href": "posts/post-with-code/index.html",
-    "title": "Post With Code",
-    "section": "",
-    "text": "This is a post with executable code."
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "TIL (Today I Learned)",
+    "title": "TILs",
     "section": "",
-    "text": "Setting Up a Blog with Quarto\n\n\n\nquarto\n\n\n\n\n\n\n\n\n\nMar 8, 2026\n\n\nAngelika Wagner\n\n\n\n\n\n\n\n\n\n\n\n\nPost With Code\n\n\n\nnews\n\ncode\n\nanalysis\n\n\n\n\n\n\n\n\n\nMar 5, 2026\n\n\nHarlow Malloc\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nMar 2, 2026\n\n\nTristan O’Malley\n\n\n\n\n\nNo matching items"
+    "text": "Setting Up a Blog with Quarto\n\n\n\nquarto\n\n\n\n\n\n\n\n\n\nMar 8, 2026\n\n\nAngelika Wagner\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -26,12 +19,5 @@
     "title": "About",
     "section": "",
     "text": "About this blog"
-  },
-  {
-    "objectID": "posts/welcome/index.html",
-    "href": "posts/welcome/index.html",
-    "title": "Welcome To My Blog",
-    "section": "",
-    "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
   }
 ]
