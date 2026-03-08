@@ -5,7 +5,7 @@ date: "2026-03-08"
 categories: [quarto]
 ---
 
-A quick guide on how to get started blogging with [Quarto](https://quarto.org/).
+A quick guide on how to start a blog with [Quarto](https://quarto.org/).
 
 **1. Install Quarto**
 
