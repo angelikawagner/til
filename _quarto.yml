@@ -4,7 +4,7 @@ project:
 website:
   description: "Things I've learned, one TIL at a time."
   site-url: https://angelikawagner.github.io/til/ # must change this appropriately for RSS feeds to work properly
-  title: "TIL Blog"
+  title: "TIL (Today I Learned)"
   navbar:
     right:
       - about.qmd

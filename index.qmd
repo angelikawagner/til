@@ -1,5 +1,5 @@
 ---
-title: "TIL (Today I Learned)"
+title: "TILs"
 listing:
   contents: posts
   feed: true
