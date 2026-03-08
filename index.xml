@@ -21,7 +21,181 @@
 
 
 
-<p>This is a post with executable code.</p>
+<p>A quick guide on how to get started blogging with <a href="https://quarto.org/">Quarto</a>.</p>
+<p><strong>1. Install Quarto</strong></p>
+<p>The official documentation recommends installing Quarto with a <code>.deb</code> package, which puts the binaries into a system-level folder. Since I didn’t have root access on my <a href="https://solve.it.com/">Solveit</a> instance, I discovered I could install Quarto via <code>pip</code>, which downloads the binaries into the user’s Python environment.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!</span>pip install quarto<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>cli</span>
+<span id="cb1-2"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!</span>quarto <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">--</span>version</span></code></pre></div></div>
+<p><strong>2. Create a Quarto blog project</strong></p>
+<p>Solveit code cells don’t work well with interactive prompts, so I piped the blog title into the command to skip the interactive prompt.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!</span>echo <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"TIL Blog"</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|</span> quarto create project blog myblog</span></code></pre></div></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!</span>ls <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>la myblog<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span></span></code></pre></div></div>
+<p><strong>3. Publish to GitHub Pages</strong></p>
+<p>This was the most involved part. I mostly followed the <a href="https://quarto.org/docs/publishing/github-pages.html#publish-command">Quarto documentation</a> for publishing on GitHub Pages, along with some help from Solveit.</p>
+<ul>
+<li>Get the GitHub token from Solveit’s secrets to authenticate with GitHub.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> os <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> getenv</span>
+<span id="cb4-2">token <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> getenv(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"GITHUB_TOKEN"</span>)</span>
+<span id="cb4-3"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(token))</span></code></pre></div></div>
+<ul>
+<li><p>Create an empty GitHub repo named <code>til</code> on github.com.</p></li>
+<li><p>Change into the directory where the blog files are stored.</p></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">%</span>cd myblog</span></code></pre></div></div>
+<ul>
+<li>Add a <code>.gitignore</code> to avoid saving the output directory of the project.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">with</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">open</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'.gitignore'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'w'</span>) <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> f:</span>
+<span id="cb6-2">    f.write(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'/.quarto/</span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">\n</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">/_site/</span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">\n</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'</span>)</span></code></pre></div></div>
+<ul>
+<li>Initialize the local repo and make the first commit.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!</span>git init</span>
+<span id="cb7-2"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!</span>git add .</span>
+<span id="cb7-3"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!</span>git commit <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>m <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"First commit of Quarto blog"</span></span></code></pre></div></div>
+<ul>
+<li>Push to GitHub.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!</span>git remote add origin https:<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">//</span>{token}<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">@</span>github.com<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span>angelikawagner<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span>til.git</span>
+<span id="cb8-2"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!</span>git branch <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>M main</span>
+<span id="cb8-3"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!</span>git push <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>u origin main</span></code></pre></div></div>
+<ul>
+<li>Create a <code>gh-pages</code> branch on GitHub.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!</span>git checkout <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">--</span>orphan gh<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>pages</span>
+<span id="cb9-2"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!</span>git reset <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">--</span>hard</span>
+<span id="cb9-3"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!</span>git commit <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">--</span>allow<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>empty <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>m <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Initialising gh-pages branch"</span></span>
+<span id="cb9-4"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!</span>git push origin gh<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>pages</span>
+<span id="cb9-5"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!</span>git checkout main</span></code></pre></div></div>
+<ul>
+<li><p>Configure GitHub Pages settings. Go to your repo on GitHub → Settings → Pages → set Source to the <code>gh-pages</code> branch and directory to <code>/ (root)</code>.</p></li>
+<li><p>Publish! I used the <code>--no-browser</code> flag so it doesn’t wait for the website to be available and open a browser window, and the <code>--no-prompt</code> flag to avoid the interactive prompt to confirm publish actions.</p></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!</span>quarto publish gh<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>pages <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">--</span>no<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>browser <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">--</span>no<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>prompt</span></code></pre></div></div>
+<p><strong>4. Customize the blog</strong></p>
+<p>Now to the fun part! All you need for a new post is to - Update the post files locally. - Commit changes and push to GitHub. - Run the command <code>!quarto publish gh-pages --no-browser --no-prompt</code> to publish the changes.</p>
 
 
 
