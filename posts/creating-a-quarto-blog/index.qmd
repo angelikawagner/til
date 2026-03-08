@@ -1,0 +1,8 @@
+---
+title: "Setting Up a Blog with Quarto"
+author: "Angelika Wagner"
+date: "2026-03-08"
+categories: [quarto]
+---
+
+This is a post with executable code.
