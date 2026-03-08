@@ -5,4 +5,83 @@ date: "2026-03-08"
 categories: [quarto]
 ---
 
-This is a post with executable code.
+A quick guide on how to get started blogging with [Quarto](https://quarto.org/).
+
+**1. Install Quarto**
+
+The official documentation recommends installing Quarto with a `.deb` package, which puts the binaries into a system-level folder. Since I didn't have root access on my [Solveit](https://solve.it.com/) instance, I discovered I could install Quarto via `pip`, which downloads the binaries into the user's Python environment.
+```python
+!pip install quarto-cli
+!quarto --version
+```
+
+**2. Create a Quarto blog project**
+
+Solveit code cells don't work well with interactive prompts, so I piped the blog title into the command to skip the interactive prompt.
+```python
+!echo "TIL Blog" | quarto create project blog myblog
+```
+```python
+!ls -la myblog/
+```
+
+**3. Publish to GitHub Pages**
+
+This was the most involved part. I mostly followed the [Quarto documentation](https://quarto.org/docs/publishing/github-pages.html#publish-command) for publishing on GitHub Pages, along with some help from Solveit.
+
+- Get the GitHub token from Solveit's secrets to authenticate with GitHub.
+```python
+from os import getenv
+token = getenv("GITHUB_TOKEN")
+print(len(token))
+```
+
+- Create an empty GitHub repo named `til` on github.com.
+
+- Change into the directory where the blog files are stored.
+```python
+%cd myblog
+```
+
+- Add a `.gitignore` to avoid saving the output directory of the project.
+```python
+with open('.gitignore', 'w') as f:
+    f.write('/.quarto/\n/_site/\n')
+```
+
+- Initialize the local repo and make the first commit.
+```python
+!git init
+!git add .
+!git commit -m "First commit of Quarto blog"
+```
+
+- Push to GitHub.
+```python
+!git remote add origin https://{token}@github.com/angelikawagner/til.git
+!git branch -M main
+!git push -u origin main
+```
+
+- Create a `gh-pages` branch on GitHub.
+```python
+!git checkout --orphan gh-pages
+!git reset --hard
+!git commit --allow-empty -m "Initialising gh-pages branch"
+!git push origin gh-pages
+!git checkout main
+```
+
+- Configure GitHub Pages settings. Go to your repo on GitHub → Settings → Pages → set Source to the `gh-pages` branch and directory to `/ (root)`.
+
+- Publish! I used the `--no-browser` flag so it doesn't wait for the website to be available and open a browser window, and the `--no-prompt` flag to avoid the interactive prompt to confirm publish actions.
+```python
+!quarto publish gh-pages --no-browser --no-prompt
+```
+
+**4. Customize the blog**
+
+Now to the fun part! All you need for a new post is to
+- Update the post files locally.
+- Commit changes and push to GitHub.
+- Run the command `!quarto publish gh-pages --no-browser --no-prompt` to publish the changes.
