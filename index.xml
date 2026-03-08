@@ -10,7 +10,26 @@
 <atom:link href="https://angelikawagner.github.io/til/index.xml" rel="self" type="application/rss+xml"/>
 <description>Things I&#39;ve learned, one TIL at a time.</description>
 <generator>quarto-1.8.27</generator>
-<lastBuildDate>Thu, 05 Mar 2026 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Sun, 08 Mar 2026 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Setting Up a Blog with Quarto</title>
+  <dc:creator>Angelika Wagner</dc:creator>
+  <link>https://angelikawagner.github.io/til/posts/creating-a-quarto-blog/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>This is a post with executable code.</p>
+
+
+
+ ]]></description>
+  <category>quarto</category>
+  <guid>https://angelikawagner.github.io/til/posts/creating-a-quarto-blog/</guid>
+  <pubDate>Sun, 08 Mar 2026 00:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Post With Code</title>
   <dc:creator>Harlow Malloc</dc:creator>
